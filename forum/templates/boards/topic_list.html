@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+
+{% block title %}
+  {{ board.name }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+  <li class="breadcrumb-item active">{{ board.name }}</li>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <a href="{% url 'topic_create' board_pk=board.pk %}" class="btn btn-primary">New topic</a>
+  </div>
+
+  <table class="table mb-4">
+    <thead class="thead-inverse">
+    <tr>
+      <th>Topic</th>
+      <th></th>
+      <th>Starter</th>
+      <th>Replies</th>
+      <th>Views</th>
+      <th>Last Update</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for topic in topics %}
+      {% url 'post_list' board.pk topic.pk as topic_url %}
+      <tr>
+        <td>
+          <p class="mb-0">
+            <a href="{{ topic_url }}">{{ topic.subject }}</a>
+          </p>
+          <small class="text-muted">
+            Pages:
+            {% for i in topic.get_page_range %}
+              <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+            {% endfor %}
+            {% if topic.has_many_pages %}
+              ...<a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last page</a>
+            {% endif %}
+          </small>
+        </td>
+        <td>
+          {% if topic.created_by == request.user %}
+            <a class="btn btn-primary btn-sm">Edit</a>
+            <a class="btn btn-danger btn-sm">Delete</a>
+          {% endif %}
+        </td>
+        <td>{{ topic.created_by.username }}</td>
+        <td>{{ topic.replies }}</td>
+        <td>{{ topic.views }}</td>
+        <td>{{ topic.last_updated_at|naturaltime }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  {% include 'includes/pagination.html' %}
+
+{% endblock %}

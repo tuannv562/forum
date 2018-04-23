@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Update information of user: {{ user.username }}
+{% endblock %}
+
+{% block content %}
+  <form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <input type="submit" class="btn btn-primary" value="Update">
+  </form>
+{% endblock %}

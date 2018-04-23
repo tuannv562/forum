@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Delete post {{ post }}
+{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+  <li class="breadcrumb-item"><a href="{% url 'topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{% url 'posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
+  <li class="breadcrumb-item active">Delete post</li>
+{% endblock %}
+
+{% block content %}
+  <p>{{ post }}</p>
+  <small>Created at: {{ post.created_at }}</small>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Delete">
+    <a class="btn btn-dark" href="{% url 'posts' post.topic.board.pk post.topic.pk %}">Cancel</a>
+  </form>
+{% endblock %}

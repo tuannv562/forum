@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+  {% block head_title %}
+  {% endblock head_title %}
+{% endblock title %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/account.css' %}">
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="text-center logo my-4">
+      <a href="{% url 'home' %}">Home</a>
+    </h1>
+    <div class="col-md-6 offset-md-3">
+      {% block inner %}
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
