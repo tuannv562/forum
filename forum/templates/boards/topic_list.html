@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% load humanize %}
 
 {% block title %}
@@ -17,7 +18,7 @@
   </div>
 
   <table class="table mb-4">
-    <thead class="thead-inverse">
+    <thead class="thead-dark">
     <tr>
       <th>Topic</th>
       <th></th>
@@ -47,8 +48,8 @@
         </td>
         <td>
           {% if topic.created_by == request.user %}
-            <a class="btn btn-primary btn-sm">Edit</a>
-            <a class="btn btn-danger btn-sm">Delete</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'topic_update' board.pk topic.pk %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'topic_delete' board.pk topic.pk %}">Delete</a>
           {% endif %}
         </td>
         <td>{{ topic.created_by.username }}</td>

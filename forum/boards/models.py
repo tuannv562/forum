@@ -78,3 +78,11 @@ class Post(TimestampedModel):
 
     def get_message_as_markdown(self):
         return mark_safe(markdown(self.message, safe_mode='escape'))
+
+    def get_number_likes(self):
+        return Like.objects.filter(post__id=self.id).count()
+
+
+class Like(TimestampedModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='+')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='+')

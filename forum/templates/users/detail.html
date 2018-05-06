@@ -31,6 +31,7 @@
                   <li>First name: {{ user.username }}</li>
                   <li>Last name: {{ user.last_name }}</li>
                   <li>Gender: {{ user.get_gender_display }}</li>
+                  <li>Date of birth: {{ user.date_of_birth }}</li>
                   <li>Timezone: {{ user.local_timezone }}</li>
                   {% if user == request.user %}
                     <li>Email: {{ user.email }}</li>
@@ -38,6 +39,8 @@
                   {% endif %}
                   <li>Is active: {{ user.is_active }}</li>
                   <li>Member since: {{ user.date_joined|naturaltime }}</li>
+                  <li>Number posts: {{ user.posts.count }}</li>
+                  <li>Bio: {{ user.bio }}</li>
                 </ul>
               </div>
               <div class="col-md-6">
@@ -229,11 +232,6 @@
         {% else %}
           <img src="{{ user|gravatar }}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
         {% endif %}
-        {#        <h6 class="mt-2">Upload a different photo</h6>#}
-        {#        <label class="custom-file">#}
-        {#          <input type="file" id="file" class="custom-file-input">#}
-        {#          <span class="custom-file-control">Choose file</span>#}
-        {#        </label>#}
       </div>
     </div>
   </div>

@@ -22,6 +22,7 @@
     {% csrf_token %}
     {% include 'includes/form.html' %}
     <input class="btn btn-primary" type="submit" value="Post a reply">
+    <a class="btn btn-dark" href="{% url 'post_list' topic.board.pk topic.pk %}">Cancel</a>
   </form>
 
   {% for post in topic.get_last_ten_posts %}

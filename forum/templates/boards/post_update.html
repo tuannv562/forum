@@ -8,10 +8,10 @@
 
 {% block breadcrumb %}
   <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
-  <li class="breadcrumb-item"><a href="{% url 'topics' post.topic.board.pk %}">{{ post.topic.board.name }}</a>
+  <li class="breadcrumb-item"><a href="{% url 'topic_list' post.topic.board.pk %}">{{ post.topic.board.name }}</a>
   </li>
   <li class="breadcrumb-item">
-    <a href="{% url 'posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
+    <a href="{% url 'post_list' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a></li>
   <li class="breadcrumb-item active">Edit post</li>
 {% endblock %}
 
@@ -20,7 +20,7 @@
     {% csrf_token %}
     {% include 'includes/form.html' %}
     <button type="submit" class="btn btn-success">Save changes</button>
-    <a href="{% url 'posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary"
+    <a href="{% url 'post_list' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary"
        role="button">Cancel</a>
   </form>
 {% endblock %}
